@@ -1,18 +1,119 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm> 
+#include <string>
 using namespace std;
 
+const char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}; 
+
 int menu() {
+    /*
+        Enseña el menú y regresa el input del usuario.
+    */
     int menu_selection = 0, user_selection; 
     cout << "\t\t Vigenère Versión 2\n\n";
     cout << "1.- Encriptación\n";
     cout << "2.- Desencriptar\n"; 
     cout << "----------------------------------------------------------------------\n";
-    cout << "Opción: ";
+    cout << "Opción (1/2): ";
     cin >> user_selection; 
 
     return user_selection;
+}
+
+
+string remove_empty_spaces(char user_input[255]) {
+    /*
+        Según un grupo de caracteres que reciba la función elimina los espacios en blanco que encuentre.
+    */
+    int i = 0;
+    string tmp, result;
+    for(i = 0; i < strlen(user_input); i++){
+        
+        if(user_input[i] != ' '){
+            tmp = tmp + user_input[i];
+        }
+    }
+    result = tmp;
+    return result;
+}
+
+
+bool is_valid(string user_input) {
+    /*
+        Valida que cada letra dentro del input del usuario (llave, plain text, cipher text) 
+        esten dentro del abecesario inglés (solo elimina la ñ).
+    */
+    int i = 0;
+    for (i = 0; i < user_input.length(); i++) {
+        if(user_input[i] >= 'A' && user_input[i] <= 'Z' || user_input[i] >= 'a' && user_input[i] <= 'z') {
+            continue;
+        } else {
+            return false;
+        }
+    }
+    return true; 
+}
+
+
+string get_user_input() {
+    /*
+        Recibe el input del usuario de la frase que se va a encriptar o desencriptar. 
+        Se validad que este dentro del abecesario ingles y se limpian los espacios 
+        si es necesario. 
+        Si el input es válido, se cambiará a mayúsculas. 
+    */
+    char raw_input[255];
+    bool is_valid_input;
+    string clean_user_input;
+    do {
+        cout << "Proporcione la frase: ";
+        fflush(stdin);
+        cin.getline(raw_input, sizeof(raw_input));
+        if (sizeof(raw_input) > 0){
+            clean_user_input = remove_empty_spaces(raw_input);
+            is_valid_input = is_valid(clean_user_input);
+            if(is_valid_input) {
+                transform(clean_user_input.begin(), clean_user_input.end(), clean_user_input.begin(), ::toupper);
+            } else {
+                cout << "Entrada no válida..." << endl;
+            }
+        } else {
+            cout << "Entrada no válida..." << endl;
+        }
+       
+    } while (!is_valid_input);
+    
+    return clean_user_input;
+}
+
+
+string get_user_key(){
+    /*
+        Obtiene la lalve del usuario, solo tiene que obtener una letra. 
+        En caso de que el usuario ingrese mas letras estas serán ignoradas. 
+        Se validad que este en un rango de puras letras dentro del abecedario (inglés)
+        aunque el usuario ingrese una minúscula, el programa lo valida.
+    */
+    string key;
+    bool is_valid_input;
+    do {
+        cout << "Proporcione la primera letra de la llave: "; 
+        fflush(stdin);
+        cin >> key; 
+        key = key[0];
+        if (key.length() > 0){
+            is_valid_input = is_valid(key);
+            if(is_valid_input) {
+                transform(key.begin(), key.end(), key.begin(), ::toupper);
+            } else {
+                cout << "La llave no es válida..." << endl;
+            }
+        } else {
+            cout << "La llave no es válida..." << endl;
+        }
+    } while(!is_valid_input);
+    return key;
 }
 
 
@@ -31,26 +132,10 @@ void decrypt() {
                 4.5) La llave cambia y se vuelve la siguiente letra del texto cifrado (en la que estamos)
                 4.6) La frase se va armando de el alfabeto en la posición k.
     */
-    char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}, cipher_text_c[255];
-    string res = "", key, actual_value, cipher_text, tmp;
+    string res = "", key, actual_value, cipher_text;
     int i = 0, j = 0, m = 0, n = 0, k = 0; 
-
-    cout << "Proporcione la frase cifrada: ";
-    fflush(stdin);
-    cin.getline(cipher_text_c, sizeof(cipher_text_c));
-    for(i = 0; i < strlen(cipher_text_c); i++){
-        
-        if(cipher_text_c[i] != ' '){
-            tmp = tmp + cipher_text_c[i];
-        }
-        cipher_text = tmp;
-    }
-
-
-    cout << "Proporcione la priemra letra de la llave: "; 
-    fflush(stdin);
-    cin >> key; 
-    key = key[0];
+    cipher_text = get_user_input();
+    key = get_user_key();
 
     for(i = 0; i < cipher_text.length(); i++) {
         for(j = 0; j < 26; j++){
@@ -62,7 +147,6 @@ void decrypt() {
                 n = j; 
             }
         }
-
         k = abs(m - n);
         if (m > n) {
             k = (26 - m) + n;
@@ -72,7 +156,7 @@ void decrypt() {
         res = res + alphabet[k]; 
     }
 
-    cout << "El text plano es: " << res << "   ";
+    cout << "El text plano es: " << res << "   " << endl;
 }
 
 
@@ -91,25 +175,11 @@ void encrypt(){
                 4.5) La frase cifrada se va armando de el alfabeto en la posición k.
                 4.6) La nueva llave es la letra recien obtenida en el paso 4.5
     */
-    char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}, plain_text_raw[255];
-    string res = "", key, actual_value, plain_text, tmp;
+    string res = "", key, actual_value, plain_text;
     int i = 0, j = 0, m = 0, n = 0, k = 0; 
 
-    cout << "Proporcione el texto plano: ";
-    fflush(stdin);
-    cin.getline(plain_text_raw, sizeof(plain_text_raw));
-    for(i = 0; i < strlen(plain_text_raw); i++){
-        
-        if(plain_text_raw[i] != ' '){
-            tmp = tmp + plain_text_raw[i];
-        }
-        plain_text = tmp;
-    }
-
-    cout << "Proporcione la primera letra de la llave: "; 
-    fflush(stdin);
-    cin >> key; 
-    key = key[0];
+    plain_text = get_user_input();
+    key = get_user_key();
 
     for(i = 0; i < plain_text.length(); i++) {
         for(j = 0; j < 26; j++){
@@ -121,41 +191,56 @@ void encrypt(){
                 n = j; 
             }
         }
-
         k = m + n;
         if (k > 25) {
             k = k - 26;
         }
-
         res = res + alphabet[k]; 
         key = alphabet[k];
     }
-
-    cout << "El text plano es: " << res << "   ";
+    cout << "El text plano es: " << res << "   " << endl;
 }
     
 
 
 int main() {
+    /*
+        Menú del programa, solo contiene dos opciones: 
+        1) Encriptar un mensaj. 
+        2) Desencriptar un mensaje.
+
+        En caso de que el usuario ingrese otro valor, el programa no se rompe 
+        indica error en la selección del proceso deseado y preguntará si quiere volver a empezar.
+
+        Esta función solo es el controlador del programa.
+    
+    */
     char key[256];
-    int user_selection; 
+    int user_selection, continue_selection; 
 
-    user_selection = menu(); 
+    do {
+        user_selection = menu(); 
 
-    switch (user_selection) {
-    case 1:
-        encrypt();
-        break;
-    case 2: 
-        decrypt();
-        break; 
-    default:
-        cout << "La opción ingresada no es válida...\n";
-        cout << "Enter para finalizar...";
+        switch (user_selection) {
+        case 1:
+            encrypt();
+            break;
+        case 2: 
+            decrypt();
+            break; 
+        default:
+            cout << "La opción ingresada no es válida...\n";
+            cout << "Enter para continuar...";
+            fflush(stdin);
+            getchar();
+            break;
+        }
+
+        cout << "Correr de nuevo? (1=Si, 2=No): ";
         fflush(stdin);
-        getchar();
-        break;
-    }
+        cin >> continue_selection; 
+    } while(continue_selection == 1);
+
     return 0;
 }
 
