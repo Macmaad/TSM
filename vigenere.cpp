@@ -2,9 +2,10 @@
 #include <cmath>
 #include <algorithm> 
 #include <string>
+#include <cstring>
 using namespace std;
 
-const char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}; 
+string alphabet  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 int menu() {
     /*
@@ -42,7 +43,7 @@ string remove_empty_spaces(char user_input[255]) {
 bool is_valid(string user_input) {
     /*
         Valida que cada letra dentro del input del usuario (llave, plain text, cipher text) 
-        esten dentro del abecesario inglés (solo elimina la ñ).
+        esten dentro del abecedario (solo elimina la ñ).
     */
     int i = 0;
     for (i = 0; i < user_input.length(); i++) {
@@ -59,7 +60,7 @@ bool is_valid(string user_input) {
 string get_user_input() {
     /*
         Recibe el input del usuario de la frase que se va a encriptar o desencriptar. 
-        Se validad que este dentro del abecesario ingles y se limpian los espacios 
+        Se validad que este dentro del abecedario y se limpian los espacios 
         si es necesario. 
         Si el input es válido, se cambiará a mayúsculas. 
     */
@@ -156,7 +157,7 @@ void decrypt() {
         res = res + alphabet[k]; 
     }
 
-    cout << "El text plano es: " << res << "   " << endl;
+    cout << "El texto plano es: " << res << "   " << endl;
 }
 
 
@@ -198,7 +199,7 @@ void encrypt(){
         res = res + alphabet[k]; 
         key = alphabet[k];
     }
-    cout << "El text plano es: " << res << "   " << endl;
+    cout << "El text cifrado es: " << res << "   " << endl;
 }
     
 
