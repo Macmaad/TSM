@@ -5,7 +5,7 @@
 #include <cstring>
 using namespace std;
 
-string alphabet  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+string alphabet  = "ABCDEFGHIJKLMN#OPQRSTUVWXYZ";
 
 int menu() {
     /*
@@ -13,10 +13,12 @@ int menu() {
     */
     int menu_selection = 0, user_selection; 
     cout << "\t\t Vigenère Versión 2\n\n";
+    cout << "Nota: Acepta valores a la 'a' a la 'z' pero la ñ (enie) deberá ser ingresada como # y de esta misma forma saldrá." << endl;
     cout << "1.- Encriptación\n";
     cout << "2.- Desencriptar\n"; 
     cout << "----------------------------------------------------------------------\n";
     cout << "Opción (1/2): ";
+    fflush(stdin);
     cin >> user_selection; 
 
     return user_selection;
@@ -47,7 +49,7 @@ bool is_valid(string user_input) {
     */
     int i = 0;
     for (i = 0; i < user_input.length(); i++) {
-        if(user_input[i] >= 'A' && user_input[i] <= 'Z' || user_input[i] >= 'a' && user_input[i] <= 'z') {
+        if(user_input[i] >= 'A' && user_input[i] <= 'Z' || user_input[i] >= 'a' && user_input[i] <= 'z' || user_input[i] == '#') {
             continue;
         } else {
             return false;
@@ -139,7 +141,7 @@ void decrypt() {
     key = get_user_key();
 
     for(i = 0; i < cipher_text.length(); i++) {
-        for(j = 0; j < 26; j++){
+        for(j = 0; j < 27; j++){
             actual_value = alphabet[j];
             if(key == actual_value) {
                 m = j;
@@ -150,7 +152,7 @@ void decrypt() {
         }
         k = abs(m - n);
         if (m > n) {
-            k = (26 - m) + n;
+            k = (27 - m) + n;
         }
 
         key = cipher_text[i];
@@ -183,7 +185,7 @@ void encrypt(){
     key = get_user_key();
 
     for(i = 0; i < plain_text.length(); i++) {
-        for(j = 0; j < 26; j++){
+        for(j = 0; j < 27; j++){
             actual_value = alphabet[j];
             if(key == actual_value) {
                 m = j;
@@ -193,8 +195,8 @@ void encrypt(){
             }
         }
         k = m + n;
-        if (k > 25) {
-            k = k - 26;
+        if (k > 26) {
+            k = k - 27;
         }
         res = res + alphabet[k]; 
         key = alphabet[k];
@@ -207,7 +209,7 @@ void encrypt(){
 int main() {
     /*
         Menú del programa, solo contiene dos opciones: 
-        1) Encriptar un mensaj. 
+        1) Encriptar un mensaje. 
         2) Desencriptar un mensaje.
 
         En caso de que el usuario ingrese otro valor, el programa no se rompe 

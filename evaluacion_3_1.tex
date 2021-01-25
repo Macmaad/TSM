@@ -21,8 +21,8 @@
 \newcommand{\dst}{\displaystyle}
 
 \title{Evaluación 3: Parte 1}
-\date{2020 \\ Enero}
-\author{Macedo Rodrigo \\Nombre \\ Nombre \\ Nombre \\ Nombre}
+\date{2020 Enero}
+\author{Carrillo García Aldo \\ Hernández Flores Luis Ángel \\ Macedo Madrigal Rodrigo \\ Polo Monroy Ricardo \\ Vázquez Andrés Mónica}
 
 \begin{document}
 \maketitle
@@ -236,10 +236,72 @@ Y utilizando la tabla anterior, solos nos queda descifrar el texto, obteniendo
     }
 \end{center}
 
-
-
-
-
 \section{Ejercicio 3}
     ?`Qué transformación de cifrado se obtiene si se aplica la transformación $C \equiv 4P + 11$ mód 27 seguida de la transformación $C \equiv 10P + 20$ mód 27?
+
+\par Solución:
+
+Para resolver este caso iremos paso por paso, primero aplicaremos la transformación $C \equiv 4P + 11$ mód 27 a A = 0 obteniendo 
+
+\begin{center}
+    $C \equiv 4P + 11$ mód 27 \\
+    $C \equiv 4*0 + 11$ mód 27 \\
+    $C \equiv 11$ mód 27
+\end{center}
+
+
+Una vez obeteniendo este valor, asignamos P = 11 y aplicamos la segunda tranformación $C \equiv 10P + 20$ mód 27, así 
+
+\begin{center}
+    $C \equiv 10P + 20$ mód 27 \\
+    $C \equiv 10*11 + 20$ mód 27 \\
+    $C \equiv 130$ mód 27 \\
+    $C \equiv 22$ mód 27 \\
+\end{center}
+
+De esta forma, una vez aplicadas las dos transformaciones a la letra $A = 0$ obenemos que su valor cifrado será de 22. Si definimos nuestra transformación definitiva como 
+\begin{center}
+    $C_{3} \equiv a*P + b$ mód 27
+\end{center}
+
+Obtenemos en el caso de A que, $22 \equiv a * 0 + b$ mód 27 $\rightarrow$ $22 \equiv b$ mód 27, obteniendo uno de los valores de la transformación final. 
+
+Ahora, aplicando ambas transformaciones iniciales a $B = 1$ obtenemos que 
+\begin{center}
+    $C \equiv 4P + 11$ mód 27 \\
+    $C \equiv 4*1 + 11$ mód 27 \\
+    $C \equiv 15$ mód 27
+\end{center}
+
+y 
+
+\begin{center}
+    $C \equiv 10P + 20$ mód 27 \\
+    $C \equiv 10*15 + 20$ mód 27 \\
+    $C \equiv 170$ mód 27 \\
+    $C \equiv 8$ mód 27 \\
+\end{center}
+
+Y con estos valores, podemos concluir que al aplicar la tranformación definitiva a $B = 1$, obtendríamos que 
+\begin{center}
+    $C_{3} \equiv a*P + b$ mód 27 \\ 
+    $8 \equiv a*1 + b$ mód 27 \\ 
+\end{center} 
+
+Pero nosotros ya conocemos el valor de $b = 22$ así tenemos que: 
+
+\begin{center}
+    $8 \equiv a*1 + b$ mód 27 \\ 
+    $8 \equiv a + 22$ mód 27 \\ 
+    $-14 \equiv a$ mód 27 \\ 
+    $13 \equiv a$ mód 27 \\ 
+\end{center} 
+
+Y así, podemos concluir que la transformación final, luego de aplicar las dos proporcionadas en el problema es la de:
+
+\begin{center}
+    $C_{3} \equiv 13P + 22$ mód 27
+\end{center}
+
+
 \end{document}
