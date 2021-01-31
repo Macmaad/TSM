@@ -1,0 +1,307 @@
+\documentclass[12pt]{article}
+\linespread{1.5}
+
+% PACKAGES
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[mathscr]{eucal}
+\usepackage[spanish, activeacute]{babel}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{gauss}
+\usepackage{multicol}
+\renewcommand{\sin}{{\rm sen}\,}
+\renewcommand{\sinh}{{\rm senh}\,}
+\newcommand{\dst}{\displaystyle}
+
+\title{Evaluación 3: Parte 1}
+\date{2020 Enero}
+\author{Carrillo García Aldo \\ Hernández Flores Luis Ángel \\ Macedo Madrigal Rodrigo \\ Polo Monroy Ricardo \\ Vázquez Andrés Mónica}
+
+\begin{document}
+\maketitle
+\section{Ejercicio 1}
+\par Mediante un análisis de frecuencias decifrar el siguiente texto que fue cifrado usando una traslación de la forma $C \equiv P + K$  mód 27: 
+\begin{center}
+    SIBMW ZPILM UCTMZ WAMAP TXWZB IUBMM UMSMA BCLPW LMSIK ZPXBW SWÑPI
+\end{center}
+
+\par Solución: \\
+Lo primero que tenemos que revisar el el número de ocurrencias de cada letra dentro de la frase, así, haciendo un conteo obtenemos: 
+
+\begin{center}
+    \begin{tabular}{ |c|c|}
+        \hline
+            Letra & Repeticiones \\
+        \hline
+        M & 9 \\
+        W & 6 \\
+        B & 5 \\
+        P & 4 \\
+        Z & 4 \\
+        I & 4 \\
+        A & 3 \\
+        U & 3 \\
+        L & 3 \\
+        S & 3 \\
+        X & 2 \\ 
+        T & 2 \\ 
+        C & 2 \\ 
+        K & 1 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Una vez obtenidos estos valores, podemos notar que la letra con mayor número de repeticiones es M con un total de 9. \\
+Luego, con los valores obtenidos en clase sabemos que la letra que mas se repite dentro del lenguaje Español es la E y usamos sus respectivos valores dentro del abecedario.
+\begin{equation}
+    E = 4 \hspace{0.2cm} y \hspace{0.2cm} M = 12
+\end{equation}
+
+Como la M corresponde a la E, hacemos el desplazamiento $12 - 4 = 8$ y así nos queda la traslación utlizada para encriptar el mensaje es de la forma 
+\begin{center}
+    $C \equiv P + 8$ mód 27
+\end{center} 
+
+Y podemos obtener que la traslación que necesitamos para obtener el mensaje es:
+
+\begin{center}
+    $P \equiv C - 8$ mód 27
+\end{center} 
+
+la cual usaremos para obtener el mensaje deseado. \\
+
+Ahora podemos construir todo nuestro abecedario con el desplazamiento obtenido 
+
+\begin{center}
+    \begin{tabular}{ |c|c|c|}
+        \hline
+            Alfabeto Original & Posición & Alfabeto trasladado \\
+        \hline
+        A & 0 & I \\
+        B & 1 & J \\
+        C & 2 & K \\
+        D & 3 & L \\
+        E & 4 & M \\
+        F & 5 & N \\
+        G & 6 & Ñ \\
+        H & 7 & O \\
+        I & 8 & P \\
+        J & 9 & Q \\
+        K & 10 & R \\ 
+        L & 11 & S \\ 
+        M & 12 & T \\ 
+        N & 13 & U \\
+        Ñ & 14 & V \\
+        O & 15 & W \\
+        P & 16 & X \\
+        Q & 17 & Y \\
+        R & 18 & Z \\
+        S & 19 & A \\
+        T & 20 & B \\
+        U & 21 & C \\
+        V & 22 & D \\
+        W & 23 & E \\
+        X & 24 & F \\
+        Y & 25 & G \\
+        Z & 26 & H \\
+        \hline 
+    \end{tabular}
+\end{center}
+
+
+\par Una vez obtenida la tabla anterior, podemos decifar el mensaje:
+\begin{center}
+    \textbf{“LA TEORIA DE NUMEROS ES IMPORTANTE EN EL ESTUDIO DE LA CRIPTOLOGÍA”}
+\end{center}
+
+\section{Ejercicio 2}
+
+\par Madiante un análisis de frecuencias, desencriptar el siguiente texto que fue encriptado usando una transformación afín:
+\begin{center}
+    TFVS FMKK BUKB CKÑL BFSK MFGL KTFM CKUO ÑMFV DOBO KNMF VIII
+\end{center}
+
+\par Solución: \\
+Realizando un análisis de frecuencias, observamos que cada letra tiene el siguiente número de apariciones en el text: 
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+            Letra & Número de apariciones \\ 
+        \hline
+        G & 1 \\
+        D & 1 \\
+        N & 1 \\
+        T & 2 \\
+        S & 2 \\ 
+        U & 2 \\ 
+        C & 2 \\
+        Ñ & 2 \\ 
+        L & 2 \\
+        V & 3 \\
+        O & 3 \\
+        I & 3 \\
+        B & 4 \\
+        M & 5 \\
+        F & 7 \\
+        K & 8 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Así, podemos observar que las letras que mas se repiten son la K con 8 apariciones y la F con 7. 
+
+\par Con esta información podemos asociar a las letras del abecedario que mas se repiten, en este caso la E en primer lugar y en segundo lugar la A.
+
+\begin{center}
+    E = 4 $\rightarrow$ K = 10 \\ 
+    A = 0 $\rightarrow$ F = 5
+\end{center}
+
+Y usando una transformación afín, obtenemos que 
+\begin{center}
+    $10 \equiv a*4 + b$ mód 27 \\
+    $5 \equiv a*0 + b$ mód 27
+\end{center}
+
+Así, como $b \equiv 5$ mód 27, podemos asignar a la primera congruencia, obteniendo que 
+
+\begin{center}
+    $10 \equiv 4a + 5$ mód 27
+\end{center}
+
+Y lo único que haría falta encontrar sería el valor de ``a'' tal que $5 \equiv 4a$ mód 27. Si $a = 8$ entonces tenemos que 
+
+\begin{center}
+    $a \equiv 8$ mód 27 \\
+    $b \equiv 5$ mód 27
+\end{center}
+
+
+Por lo que la transformación de encriptación es:
+\begin{center}
+    $C \equiv 8P + 5$ mód 27
+\end{center}
+
+
+Ahora, con esta información necesitamos encontrar una transformación para desencriptar el mensaje:
+
+\begin{center}
+    $P \equiv 8^{-1}(C - 5)$ mód 27 $\rightarrow$ $P \equiv 17(C - 5)$ mód 27
+\end{center}
+
+
+Siendo esta última nuestra transformación para desencriptar.
+
+Así, obtenemos
+
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+            Letra Cifrada & Posición en el alfabeto & Transformación aplicada & Letra descifrada \\
+        \hline            
+            T &  20 & 12 & M \\
+            F &  5 & 0 & A \\
+            V &  22 & 19 & S \\
+            S &  19 & 22 & V \\
+            M &  12 & 11 & L \\
+            K &  10 & 4 & E \\
+            B &  1 & 13 & N \\
+            U &  21 & 2 & C \\
+            C &  2 & 3 & D \\
+            Ñ &  14 & 18 & R \\
+            L &  11 & 21 & U \\
+            G &  6 & 17 & Q \\
+            O &  15 & 8 & I \\
+            D &  3 & 20 & T \\
+            N &  13 & 1 & B \\
+            I &  8 & 24 & X \\
+        \hline
+    \end{tabular}
+\end{center}
+
+
+Y utilizando la tabla anterior, solos nos queda descifrar el texto, obteniendo 
+
+\begin{center}
+    \textbf{
+        “MÁS VALE  ENCENDER UNA VELA QUE MALDECIR LAS TINIEBLAS XXX”
+    }
+\end{center}
+
+\section{Ejercicio 3}
+    ?`Qué transformación de cifrado se obtiene si se aplica la transformación $C \equiv 4P + 11$ mód 27 seguida de la transformación $C \equiv 10P + 20$ mód 27?
+
+\par Solución:
+
+Para resolver este caso iremos paso por paso, primero aplicaremos la transformación $C \equiv 4P + 11$ mód 27 a A = 0 obteniendo 
+
+\begin{center}
+    $C \equiv 4P + 11$ mód 27 \\
+    $C \equiv 4*0 + 11$ mód 27 \\
+    $C \equiv 11$ mód 27
+\end{center}
+
+
+Una vez obeteniendo este valor, asignamos P = 11 y aplicamos la segunda tranformación $C \equiv 10P + 20$ mód 27, así 
+
+\begin{center}
+    $C \equiv 10P + 20$ mód 27 \\
+    $C \equiv 10*11 + 20$ mód 27 \\
+    $C \equiv 130$ mód 27 \\
+    $C \equiv 22$ mód 27 \\
+\end{center}
+
+De esta forma, una vez aplicadas las dos transformaciones a la letra $A = 0$ obenemos que su valor cifrado será de 22. Si definimos nuestra transformación definitiva como 
+\begin{center}
+    $C_{3} \equiv a*P + b$ mód 27
+\end{center}
+
+Obtenemos en el caso de A que, $22 \equiv a * 0 + b$ mód 27 $\rightarrow$ $22 \equiv b$ mód 27, obteniendo uno de los valores de la transformación final. 
+
+Ahora, aplicando ambas transformaciones iniciales a $B = 1$ obtenemos que 
+\begin{center}
+    $C \equiv 4P + 11$ mód 27 \\
+    $C \equiv 4*1 + 11$ mód 27 \\
+    $C \equiv 15$ mód 27
+\end{center}
+
+y 
+
+\begin{center}
+    $C \equiv 10P + 20$ mód 27 \\
+    $C \equiv 10*15 + 20$ mód 27 \\
+    $C \equiv 170$ mód 27 \\
+    $C \equiv 8$ mód 27 \\
+\end{center}
+
+Y con estos valores, podemos concluir que al aplicar la tranformación definitiva a $B = 1$, obtendríamos que 
+\begin{center}
+    $C_{3} \equiv a*P + b$ mód 27 \\ 
+    $8 \equiv a*1 + b$ mód 27 \\ 
+\end{center} 
+
+Pero nosotros ya conocemos el valor de $b = 22$ así tenemos que: 
+
+\begin{center}
+    $8 \equiv a*1 + b$ mód 27 \\ 
+    $8 \equiv a + 22$ mód 27 \\ 
+    $-14 \equiv a$ mód 27 \\ 
+    $13 \equiv a$ mód 27 \\ 
+\end{center} 
+
+Y así, podemos concluir que la transformación final, luego de aplicar las dos proporcionadas en el problema es la de:
+
+\begin{center}
+    $C_{3} \equiv 13P + 22$ mód 27
+\end{center}
+
+
+\end{document}
