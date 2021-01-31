@@ -1,3 +1,9 @@
 .vscode
 .DS_Store
 build/.DS_Store
+a.out
+evaluacion_3_2.aux
+evaluacion_3_2.fdb_latexmk
+evaluacion_3_2.fls
+evaluacion_3_2.log
+evaluacion_3_2.synctex.gz

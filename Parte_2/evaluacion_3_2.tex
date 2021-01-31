@@ -1,0 +1,157 @@
+\documentclass[12pt]{article}
+\linespread{1.5}
+
+% PACKAGES
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[mathscr]{eucal}
+\usepackage[spanish, activeacute]{babel}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{gauss}
+\usepackage{multicol}
+\renewcommand{\sin}{{\rm sen}\,}
+\renewcommand{\sinh}{{\rm senh}\,}
+\newcommand{\dst}{\displaystyle}
+
+\title{Evaluación 3: Parte 1}
+\date{2020 Enero}
+\author{Carrillo García Aldo \\ Hernández Flores Luis Ángel \\ Macedo Madrigal Rodrigo \\ Polo Monroy Ricardo \\ Vázquez Andrés Mónica}
+
+\begin{document}
+\maketitle
+\section{Ejercicio 1}
+?` Cuál es la clave común que deben usar dos individuos que han escogido como claves los números $k_{1} = 21$ y $k_{2} = 83$, si el módulo es $p = 719$ y $a = 5$?
+
+\par Solución: 
+
+Usando el algoritmo de Diffie-Helman podemos obtener la llave que se utiliza en común, ya que 
+\begin{center}
+    $k = a^{k_{1}k_{2}}$ mód p
+\end{center}
+
+De esta forma tenemos 
+\begin{center}
+    $k = 5^{21 * 83}$ mód 719 \\
+    $k = 5^{1743}$ mód 719 \\
+    $k = 406$
+\end{center}
+
+Así, la llave en común de ambos individuos es: $k = 406$
+\section{Ejercicio 2}
+Si $p = 6833$, $a = 15$ y tres individuos escogen como claves $k_{1} = 3$, $k_{2} = 25$ y $k_{3} = 45$, ?`qué número pueden usar como clave común?
+
+\par Solución: 
+
+Ya conocemos como sacar la llave cuando tenemos solo dos individuos y ahora necesitamos ver que hacer cuando se aumenta un individuo.
+Sabiendo que $y_{n} = a^{k_{n}}$ mód p y que con dos individuos $k = y_{1}^{k_{2}}$ mód p y $k = y_{2}^{k_{1}}$ llegamos a que 
+\begin{center}
+    $k = a^{k_{1}k_{2}}$ mód p
+\end{center}
+
+Teniendo al tercer intregante el valor tendría que pasar por 2 previos antes de poder obtener la llave en común, es decir, 
+\begin{center}
+    $k' = a^{k_{1}}$ mód p
+\end{center}
+
+De ahí $y_{1}$ va al individuo 2 y este le aplica su valor
+\begin{center}
+    $k'' = k'^{k_{2}}$ mód p
+\end{center}
+
+y el último individuo para poder encontrar la llave en común tendría que aplicar su llave: 
+
+
+\begin{center}
+    $k = k''^{k_{3}}$ mód p 
+\end{center}
+
+pero sustituyendo valores esto se convierte en 
+
+\begin{center}
+    $k = a^{k_{1}*k_{2}*k_{3}}$ mód p
+\end{center}
+
+Y de esa forma podemos encontrar el valor en común
+
+\begin{center}
+    $k = 15 ^{3 * 25 * 45}$ mód 6833 \\
+    $k = 15 ^{3375}$ mód 6833 \\
+    $k = 1765$ mód 6833
+\end{center}
+
+El valor en común para los tres individuos es:
+\begin{center}
+    $k = 1765$
+\end{center}
+
+
+
+\section{Ejercicio 3}
+En un sistema RSA se sabe que $n = 153863$, $\varphi(n) = 153000$ y que la clave de cifrado es $e = 19$. Hallar la clave de decifrado.
+
+\par Solución: 
+
+Necesitamos encontrar $d$, la cual necesita cumplir que 
+\begin{center}
+    $e*d \equiv 1 $ mód $\varphi(n)$
+\end{center}
+
+es decir 
+
+\begin{center}
+    $19 * d \equiv 1$ mód 153000
+\end{center}
+
+y como se pide para RSA que $(e, \varphi(n)) = 1$ entonces existe solución.
+
+Podemos reescribir como
+\begin{equation}
+    19x - 153000y = 1
+\end{equation}
+
+Y usando el algoritmo de euclides
+
+\begin{equation}
+    \begin{split}
+        153000 & = 19(8052) + 12 \\
+        19 & = 12(1) + 7 \\ 
+        12 & = 7(1) + 5 \\
+        7 & = 5(1) + 2 \\
+        5 & = 2(2) + 1 \\
+        2 & = 2(1) 
+    \end{split}
+\end{equation}
+
+Así, 
+
+\begin{equation}
+    \begin{split}
+        1 & = 5 - 2(2) \\
+        & = 5 - 2[7 - 5] \\
+        & = 5 + 2(5) -2(7) \\
+        & = 5(3) - 2(7) \\
+        & = [12 - 7](3) - 2(7) \\
+        & = 3(12) - 3(7) - 2(7) \\ 
+        & = 3(12) - 5(7) \\
+        & = 3(12) - 5[19 - 12] \\
+        & = 3(12) - 5(19) + 5(12) \\ 
+        & = 8(12) - 5(19) \\
+        & = 8[153000 - 19(8052)] - 5(19) \\  
+        & = 153000(8) - 19(8)(8052) - 5(19) \\
+        & = 153000(8) + 19(-64421)
+    \end{split}
+\end{equation}
+
+Por lo que $x = -64421 \equiv 88579$ mód 153000
+
+De esta forma, la clave de decifrado es $d = 88579$
+
+
+\end{document}
